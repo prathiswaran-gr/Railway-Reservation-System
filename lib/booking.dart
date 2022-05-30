@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
 import 'trains.dart';
 
-class Booking extends StatelessWidget {
+class Booking extends StatefulWidget {
   const Booking({Key? key}) : super(key: key);
 
   @override
+  State<Booking> createState() => _BookingState();
+}
+
+class _BookingState extends State<Booking> {
+  String? dateTime;
+  TextEditingController fromController = TextEditingController();
+  TextEditingController toController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
+  TextEditingController classController = TextEditingController();
+  DateTime currentDate = DateTime.now();
+  @override
   Widget build(BuildContext context) {
-    TextEditingController fromController = TextEditingController();
-    TextEditingController toController = TextEditingController();
-    TextEditingController dateController = TextEditingController();
-    TextEditingController classController = TextEditingController();
     var width = MediaQuery.of(context).size.width / 1.2;
     var height = MediaQuery.of(context).size.height / 1.2;
     return Column(
@@ -27,7 +34,7 @@ class Booking extends StatelessWidget {
                 color: Colors.blueAccent,
                 width: 3,
               ),
-              borderRadius: BorderRadius.all(
+              borderRadius: const BorderRadius.all(
                 Radius.circular(20),
               ),
             ),
@@ -66,41 +73,49 @@ class Booking extends StatelessWidget {
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: 300,
-                          height: 75,
-                          child: TextField(
-                            decoration:
-                                const InputDecoration(labelText: 'Date'),
-                            controller: dateController,
-                            // onSubmitted: (_) => _submitData(),
-                            // onChanged: (val) {
-                            //   titleInput = val;
-                            // },
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 40,
-                        ),
-                        SizedBox(
-                          width: 300,
-                          height: 75,
-                          child: TextField(
-                            decoration:
-                                const InputDecoration(labelText: 'Class'),
-                            controller: classController,
-                            // onSubmitted: (_) => _submitData(),
-                            // onChanged: (val) {
-                            //   titleInput = val;
-                            // },
-                          ),
-                        ),
-                      ],
+                    TextButton(
+                      onPressed: () {
+                        showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime.now(),
+                            lastDate: currentDate.add(
+                              const Duration(days: 90),
+                            ),
+                            builder: (context, child) => Theme(
+                                  data: ThemeData(
+                                    primarySwatch: Colors.blue,
+                                    primaryColor: Colors.blue,
+                                  ),
+                                  child: child!,
+                                )).then((date) {
+                          setState(() {
+                            dateTime = DateFormat('yyyy-MM-dd').format(date!);
+                          });
+                        });
+                      },
+                      child: Text('Choose Date'),
+                    ),
+                    Text(
+                      dateTime == null ? 'No date Chosen' : dateTime.toString(),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    SizedBox(
+                      width: 310,
+                      height: 75,
+                      child: TextField(
+                        decoration: const InputDecoration(labelText: 'Class'),
+                        controller: classController,
+                        // onSubmitted: (_) => _submitData(),
+                        // onChanged: (val) {
+                        //   titleInput = val;
+                        // },
+                      ),
                     ),
                   ],
                 ),
