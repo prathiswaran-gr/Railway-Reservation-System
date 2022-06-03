@@ -28,7 +28,7 @@ class _BookingState extends State<Booking> {
           child: Container(
             width: 800,
             margin: const EdgeInsets.all(30.0),
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(20.0),
             decoration: BoxDecoration(
               border: Border.all(
                 color: Colors.blueAccent,

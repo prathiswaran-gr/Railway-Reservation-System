@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:railway_reservation/booking.dart';
+import 'package:railway_reservation/passenger.dart';
 import 'package:railway_reservation/searchTrain.dart';
 
 class Home extends StatelessWidget {
@@ -16,7 +17,7 @@ class Home extends StatelessWidget {
           centerTitle: true,
           bottom: const TabBar(
             tabs: <Widget>[
-              Tab(icon: Icon(Icons.train), text: 'Booking'),
+              Tab(icon: Icon(Icons.train), text: 'Search'),
               Tab(
                 icon: Icon(Icons.search),
                 text: 'PNR Status',
