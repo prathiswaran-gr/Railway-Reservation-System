@@ -1,10 +1,17 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+
+import 'package:railway_reservation/payment/razorPayWay.dart';
 
 class Passenger extends StatelessWidget {
   const Passenger({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var rand = Random();
+    dynamic random = rand.nextInt(900000000) + 3000000000;
+    print(random);
     TextEditingController nameController = TextEditingController();
     TextEditingController ageController = TextEditingController();
     return Scaffold(
@@ -58,7 +65,14 @@ class Passenger extends StatelessWidget {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RazorPayWeb(),
+                    ),
+                  );
+                },
                 child: Text('Book'),
               )
             ],
