@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:railway_reservation/passenger.dart';
 
 class TrainList extends StatelessWidget {
-  const TrainList({Key? key}) : super(key: key);
+  const TrainList({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

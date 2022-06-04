@@ -3,14 +3,14 @@ import 'package:intl/intl.dart';
 import 'trains.dart';
 
 class Booking extends StatefulWidget {
-  const Booking({Key? key}) : super(key: key);
+  const Booking({Key key}) : super(key: key);
 
   @override
   State<Booking> createState() => _BookingState();
 }
 
 class _BookingState extends State<Booking> {
-  String? dateTime;
+  String dateTime;
   TextEditingController fromController = TextEditingController();
   TextEditingController toController = TextEditingController();
   TextEditingController dateController = TextEditingController();
@@ -39,13 +39,14 @@ class _BookingState extends State<Booking> {
               ),
             ),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      width: 300,
-                      height: 75,
+                      width: width / 4.5,
+                      height: height / 6,
                       child: TextField(
                         decoration: const InputDecoration(labelText: 'From'),
                         controller: fromController,
@@ -59,8 +60,8 @@ class _BookingState extends State<Booking> {
                       width: 40,
                     ),
                     SizedBox(
-                      width: 300,
-                      height: 75,
+                      width: width / 4.5,
+                      height: height / 6,
                       child: TextField(
                         decoration: const InputDecoration(labelText: 'To'),
                         controller: toController,
@@ -73,41 +74,52 @@ class _BookingState extends State<Booking> {
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextButton(
-                      onPressed: () {
-                        showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime.now(),
-                            lastDate: currentDate.add(
-                              const Duration(days: 90),
-                            ),
-                            builder: (context, child) => Theme(
-                                  data: ThemeData(
-                                    primarySwatch: Colors.blue,
-                                    primaryColor: Colors.blue,
-                                  ),
-                                  child: child!,
-                                )).then((date) {
-                          setState(() {
-                            dateTime = DateFormat('yyyy-MM-dd').format(date!);
-                          });
-                        });
-                      },
-                      child: Text('Choose Date'),
-                    ),
-                    Text(
-                      dateTime == null ? 'No date Chosen' : dateTime.toString(),
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime.now(),
+                                lastDate: currentDate.add(
+                                  const Duration(days: 90),
+                                ),
+                                builder: (context, child) => Theme(
+                                      data: ThemeData(
+                                        primarySwatch: Colors.blue,
+                                        primaryColor: Colors.blue,
+                                      ),
+                                      child: child,
+                                    )).then((date) {
+                              setState(() {
+                                dateTime =
+                                    DateFormat('yyyy-MM-dd').format(date);
+                              });
+                            });
+                          },
+                          child: const Text('Choose Date'),
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        Text(
+                          dateTime == null
+                              ? 'No date Chosen'
+                              : dateTime.toString(),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                     const SizedBox(
-                      width: 5,
+                      width: 50,
                     ),
                     SizedBox(
-                      width: 310,
-                      height: 75,
+                      width: width / 4.5,
+                      height: height / 6,
                       child: TextField(
                         decoration: const InputDecoration(labelText: 'Class'),
                         controller: classController,

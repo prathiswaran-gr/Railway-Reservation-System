@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:railway_reservation/pnrTrainList.dart';
 import 'package:railway_reservation/trains.dart';
 
 class SearchTrain extends StatelessWidget {
-  const SearchTrain({Key? key}) : super(key: key);
+  const SearchTrain({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class SearchTrain extends StatelessWidget {
             TextButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Trains()));
+                    MaterialPageRoute(builder: (context) => const PnrTrainList()));
               },
               child: Icon(Icons.search),
             ),
