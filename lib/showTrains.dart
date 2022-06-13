@@ -1,65 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:mysql1/mysql1.dart';
 import 'package:railway_reservation/passenger.dart';
 
 class TrainList extends StatelessWidget {
-  const TrainList({Key key}) : super(key: key);
+  Object data;
+
+  
+
+  TrainList({this.data});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: GestureDetector(
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Passenger()));
-            },
-            child: Card(
-              //margin: EdgeInsets.symmetric(horizontal: 50),
-              elevation: 10.0,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
+    List<String> trainDetails = [];
+    for (var i in data) {
+      trainDetails.add(i.toString());
+    }
+    String train_id = trainDetails[0];
+
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Passenger(id: train_id)));
+        },
+        child: Card(
+          //margin: EdgeInsets.symmetric(horizontal: 50),
+          elevation: 10.0,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text('12904'),
-                        SizedBox(width: 10),
-                        Text('Pandiyan Express'),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          children: [
-                            Text('MDU'),
-                            Text('12:00'),
-                            Text('Sun,29 May'),
-                          ],
-                        ),
-                        Icon(Icons.arrow_forward),
-                        Column(
-                          children: [
-                            Text('MDU'),
-                            Text('12:00'),
-                            Text('Sun,29 May'),
-                          ],
-                        ),
-                      ],
-                    )
+                    Text(trainDetails[0]),
+                    SizedBox(width: 10),
+                    Text(trainDetails[1]),
                   ],
                 ),
-              ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      children: [
+                        Text(trainDetails[2]),
+                        Text(trainDetails[6].substring(0, 5)),
+                        Text(trainDetails[4].substring(0, 11)),
+                      ],
+                    ),
+                    Icon(Icons.arrow_forward),
+                    Column(
+                      children: [
+                        Text(trainDetails[3]),
+                        Text(trainDetails[7].substring(0, 5)),
+                        Text(trainDetails[5].substring(0, 11)),
+                      ],
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 }

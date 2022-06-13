@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'loading.dart';
 import 'model/mysql.dart';
 import 'trains.dart';
 
@@ -9,12 +10,11 @@ class Booking extends StatefulWidget {
 }
 
 class _BookingState extends State<Booking> {
+  List<Object> trainDetailsList = [];
   var db = MySql();
   String dateTime;
   TextEditingController fromController = TextEditingController();
   TextEditingController toController = TextEditingController();
-  TextEditingController dateController = TextEditingController();
-  TextEditingController classController = TextEditingController();
   DateTime currentDate = DateTime.now();
   String selectedValue = "SL";
 
@@ -53,10 +53,6 @@ class _BookingState extends State<Booking> {
                   child: TextField(
                     decoration: const InputDecoration(labelText: 'From'),
                     controller: fromController,
-                    // onSubmitted: (_) => _submitData(),
-                    // onChanged: (val) {
-                    //   titleInput = val;
-                    // },
                   ),
                 ),
                 SizedBox(
@@ -65,10 +61,6 @@ class _BookingState extends State<Booking> {
                   child: TextField(
                     decoration: const InputDecoration(labelText: 'To'),
                     controller: toController,
-                    // onSubmitted: (_) => _submitData(),
-                    // onChanged: (val) {
-                    //   titleInput = val;
-                    // },
                   ),
                 ),
                 Row(
@@ -115,12 +107,19 @@ class _BookingState extends State<Booking> {
                       items: menuItems,
                     )),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     getTrainDetails();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Trains()),
-                    );
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Loading()));
+                    await Future.delayed(Duration(seconds: 3), () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Trains(
+                                  data: trainDetailsList,
+                                )),
+                      );
+                    });
                   },
                   child: Text('Search Trains'),
                 ),
@@ -134,10 +133,14 @@ class _BookingState extends State<Booking> {
 
   void getTrainDetails() {
     db.getConnection().then((conn) {
-      String sql = '';
+      String sql =
+          "select * from train where _from = '${fromController.text}' and _to = '${toController.text}' and departure_date = '$dateTime';";
       conn.query(sql).then((res) {
-        print(res.toList());
+        for (var row in res) {
+          trainDetailsList.add(row);
+        }
       });
+      conn.close();
     });
   }
 }

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:railway_reservation/showTrains.dart';
 
 class Trains extends StatelessWidget {
-  const Trains({Key key}) : super(key: key);
+  List<Object> data;
+
+  Trains({this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +14,11 @@ class Trains extends StatelessWidget {
           'Trains',
         ),
       ),
-      body: TrainList(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: data.map((key) => TrainList(data: key)).toList(),
+        ),
+      ),
     );
   }
 }

@@ -5,8 +5,12 @@ import 'package:railway_reservation/payment.dart';
 import 'package:railway_reservation/showPNR.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
+import 'model/mysql.dart';
+
 class Passenger extends StatefulWidget {
-  const Passenger({Key key}) : super(key: key);
+  String id;
+
+  Passenger({this.id});
 
   @override
   State<Passenger> createState() => _PassengerState();
@@ -14,14 +18,19 @@ class Passenger extends StatefulWidget {
 
 class _PassengerState extends State<Passenger> {
   // static const platform = const MethodChannel("razorpay_flutter");
+
+  String id;
+  _PassengerState({this.id});
+
+  var db = MySql();
   Razorpay _razorpay;
   bool isTicketBooked = false;
   dynamic random;
+  TextEditingController nameController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController nameController = TextEditingController();
-    TextEditingController ageController = TextEditingController();
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Booking'),
@@ -138,7 +147,9 @@ class _PassengerState extends State<Passenger> {
     });
     if (isTicketBooked) {
       genratePNR();
-      Navigator.push(context, MaterialPageRoute(builder: (context) => ShowPNR(PNR: random)));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => ShowPNR(PNR: random)));
+      storeDetails();
     }
     /*Fluttertoast.showToast(
         msg: "SUCCESS: " + response.paymentId!,
@@ -147,7 +158,8 @@ class _PassengerState extends State<Passenger> {
 
   void _handlePaymentError(PaymentFailureResponse response) {
     print('Error Response: $response');
-    Navigator.push(context, MaterialPageRoute(builder: (context) => ShowPNR(PNR: random)));
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ShowPNR(PNR: random)));
     /* Fluttertoast.showToast(
         msg: "ERROR: " + response.code.toString() + " - " + response.message!,
         toastLength: Toast.LENGTH_SHORT); */
@@ -164,5 +176,13 @@ class _PassengerState extends State<Passenger> {
     var rand = Random();
     random = rand.nextInt(900000000) + 3000000000;
     print(random);
+  }
+
+  void storeDetails() {
+    db.getConnection().then((conn) {
+      conn.query(
+          "insert into passenger (pnr_no, _name, age, train_id) values ($random, '${nameController.text}', '${ageController.text}', $id)");
+      conn.close();
+    });
   }
 }
