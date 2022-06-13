@@ -1,19 +1,27 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:railway_reservation/payment.dart';
+import 'package:railway_reservation/showPNR.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
-import 'package:railway_reservation/payment/razorPayWay.dart';
-
-class Passenger extends StatelessWidget {
+class Passenger extends StatefulWidget {
   const Passenger({Key key}) : super(key: key);
 
   @override
+  State<Passenger> createState() => _PassengerState();
+}
+
+class _PassengerState extends State<Passenger> {
+  // static const platform = const MethodChannel("razorpay_flutter");
+  Razorpay _razorpay;
+  bool isTicketBooked = false;
+  dynamic random;
+  @override
   Widget build(BuildContext context) {
-    var rand = Random();
-    dynamic random = rand.nextInt(900000000) + 3000000000;
-    print(random);
     TextEditingController nameController = TextEditingController();
     TextEditingController ageController = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Booking'),
@@ -65,14 +73,15 @@ class Passenger extends StatelessWidget {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => RazorPayWeb(),
-                    ),
-                  );
-                },
+                onPressed: openCheckout,
+                //() {
+                //   // Navigator.push(
+                //   //   context,
+                //   //   MaterialPageRoute(
+                //   //     builder: (context) => RazorPay(),
+                //   //   ),
+                //   // );
+                // },
                 child: Text('Book'),
               )
             ],
@@ -80,5 +89,80 @@ class Passenger extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _razorpay = Razorpay();
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _razorpay.clear();
+  }
+
+  void openCheckout() async {
+    var options = {
+      "key": "rzp_test_MRHHnrHFYsUO2a",
+      "amount": "31500",
+      "currency": "INR",
+      "timeout": 120,
+      "name": "Railway Reservation",
+      "description": "Test Transaction",
+      "image": "https://example.com/your_logo",
+      "prefill": {
+        "name": "Prathis",
+        "email": "test@gmail.com",
+        "contact": "1234567890"
+      },
+      "notes": {"address": "Autofy"},
+      "theme": {"color": "#DF0145"},
+    };
+
+    try {
+      _razorpay.open(options);
+    } catch (e) {
+      debugPrint('Error: e');
+    }
+  }
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    print('Success Response: $response');
+    setState(() {
+      isTicketBooked = true;
+    });
+    if (isTicketBooked) {
+      genratePNR();
+      Navigator.push(context, MaterialPageRoute(builder: (context) => ShowPNR(PNR: random)));
+    }
+    /*Fluttertoast.showToast(
+        msg: "SUCCESS: " + response.paymentId!,
+        toastLength: Toast.LENGTH_SHORT); */
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    print('Error Response: $response');
+    Navigator.push(context, MaterialPageRoute(builder: (context) => ShowPNR(PNR: random)));
+    /* Fluttertoast.showToast(
+        msg: "ERROR: " + response.code.toString() + " - " + response.message!,
+        toastLength: Toast.LENGTH_SHORT); */
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    print('External SDK Response: $response');
+    /* Fluttertoast.showToast(
+        msg: "EXTERNAL_WALLET: " + response.walletName!,
+        toastLength: Toast.LENGTH_SHORT); */
+  }
+
+  void genratePNR() {
+    var rand = Random();
+    random = rand.nextInt(900000000) + 3000000000;
+    print(random);
   }
 }

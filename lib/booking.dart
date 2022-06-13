@@ -23,7 +23,7 @@ class _BookingState extends State<Booking> {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width / 1.2;
-    var height = MediaQuery.of(context).size.height / 1.2;
+    var height = MediaQuery.of(context).size.height / 1.6;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -31,8 +31,8 @@ class _BookingState extends State<Booking> {
         Center(
           child: Container(
             width: 400,
-            margin: const EdgeInsets.all(30.0),
-            padding: const EdgeInsets.all(20.0),
+            margin: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(10.0),
             decoration: BoxDecoration(
               border: Border.all(
                 color: Colors.blueAccent,
@@ -46,8 +46,8 @@ class _BookingState extends State<Booking> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  width: width / 4.5,
-                  height: height / 6,
+                  width: width,
+                  height: height / 8,
                   child: TextField(
                     decoration: const InputDecoration(labelText: 'From'),
                     controller: fromController,
@@ -57,12 +57,9 @@ class _BookingState extends State<Booking> {
                     // },
                   ),
                 ),
-                const SizedBox(
-                  width: 40,
-                ),
                 SizedBox(
-                  width: width / 4.5,
-                  height: height / 6,
+                  width: width,
+                  height: height / 8,
                   child: TextField(
                     decoration: const InputDecoration(labelText: 'To'),
                     controller: toController,
@@ -98,17 +95,11 @@ class _BookingState extends State<Booking> {
                       },
                       child: const Text('Choose Date'),
                     ),
-                    SizedBox(
-                      width: 15,
-                    ),
                     Text(
                       dateTime == null ? 'No date Chosen' : dateTime.toString(),
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],
-                ),
-                SizedBox(
-                  width: 50,
                 ),
                 SizedBox(
                     width: 100,
@@ -121,9 +112,6 @@ class _BookingState extends State<Booking> {
                       },
                       items: menuItems,
                     )),
-                SizedBox(
-                  height: 20,
-                ),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.push(
