@@ -3,7 +3,24 @@ import 'package:flutter/material.dart';
 import 'passenger.dart';
 
 class PnrTrainList extends StatelessWidget {
-  const PnrTrainList({Key key}) : super(key: key);
+  int train_id, age;
+  String pnr_no, train_name, from, to, name, cls;
+  DateTime d_date, a_date;
+  Duration d_time, a_time;
+
+  PnrTrainList(
+      {this.pnr_no,
+      this.train_id,
+      this.train_name,
+      this.from,
+      this.to,
+      this.name,
+      this.age,
+      this.d_date,
+      this.a_date,
+      this.d_time,
+      this.a_time,
+      this.cls});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +52,7 @@ class PnrTrainList extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text('PNR Number:'),
-                      Text('3457171937'),
+                      Text(pnr_no),
                     ],
                   ),
                   SizedBox(
@@ -43,14 +60,14 @@ class PnrTrainList extends StatelessWidget {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [Text('87525'), Text('Pandiyan')],
+                    children: [Text('$train_id'), Text(train_name)],
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [Text('From : Madurai'), Text('To : Chennai')],
+                    children: [Text('From : $from'), Text('To : $to')],
                   ),
                   SizedBox(
                     height: 10,
@@ -61,7 +78,7 @@ class PnrTrainList extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      Text('Santhosh'),
+                      Text(name),
                     ],
                   ),
                   SizedBox(
@@ -73,7 +90,7 @@ class PnrTrainList extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      Text('19'),
+                      Text('$age'),
                     ],
                   ),
                   SizedBox(
@@ -81,11 +98,23 @@ class PnrTrainList extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      Text('Date :'),
+                      Text('Depature Date :'),
                       SizedBox(
                         width: 10,
                       ),
-                      Text(DateTime.now().toString()),
+                      Text(d_date.toString()),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      Text('Arrival Date :'),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(a_date.toString()),
                     ],
                   ),
                   SizedBox(
@@ -97,7 +126,19 @@ class PnrTrainList extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      Text('18:00'),
+                      Text(d_time.toString()),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      Text('Arrival Time :'),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(a_time.toString()),
                     ],
                   ),
                   SizedBox(
@@ -109,7 +150,7 @@ class PnrTrainList extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      Text('AC'),
+                      Text(cls),
                     ],
                   ),
                 ],

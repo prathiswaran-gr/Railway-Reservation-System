@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'model/mysql.dart';
 import 'trains.dart';
 
 class Booking extends StatefulWidget {
@@ -8,6 +9,7 @@ class Booking extends StatefulWidget {
 }
 
 class _BookingState extends State<Booking> {
+  var db = MySql();
   String dateTime;
   TextEditingController fromController = TextEditingController();
   TextEditingController toController = TextEditingController();
@@ -114,6 +116,7 @@ class _BookingState extends State<Booking> {
                     )),
                 ElevatedButton(
                   onPressed: () {
+                    getTrainDetails();
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const Trains()),
@@ -127,5 +130,14 @@ class _BookingState extends State<Booking> {
         ),
       ],
     );
+  }
+
+  void getTrainDetails() {
+    db.getConnection().then((conn) {
+      String sql = '';
+      conn.query(sql).then((res) {
+        print(res.toList());
+      });
+    });
   }
 }
