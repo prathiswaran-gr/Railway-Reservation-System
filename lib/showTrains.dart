@@ -16,7 +16,7 @@ class TrainList extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => Passenger()));
             },
             child: Card(
-              margin: EdgeInsets.symmetric(horizontal: 300),
+              //margin: EdgeInsets.symmetric(horizontal: 50),
               elevation: 10.0,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),

@@ -40,13 +40,16 @@ class _RazorPayWebState extends State<RazorPayWeb> {
       return element;
     });
 
-    return Scaffold(
-      body: Builder(
-        builder: (BuildContext context) {
-          return Container(
-            child: HtmlElementView(viewType: 'rzp-html'),
-          );
-        },
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: Builder(
+          builder: (BuildContext context) {
+            return Container(
+              child: HtmlElementView(viewType: 'rzp-html'),
+            );
+          },
+        ),
       ),
     );
   }

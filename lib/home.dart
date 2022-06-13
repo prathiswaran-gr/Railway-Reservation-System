@@ -25,7 +25,7 @@ class Home extends StatelessWidget {
             ],
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: <Widget>[
             Booking(),
             SearchTrain(),

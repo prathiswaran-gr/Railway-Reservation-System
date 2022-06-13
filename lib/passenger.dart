@@ -20,7 +20,7 @@ class Passenger extends StatelessWidget {
       ),
       body: Center(
         child: Container(
-          width: 450,
+          width: 320,
           height: 230,
           margin: const EdgeInsets.all(30.0),
           padding: const EdgeInsets.all(10.0),
