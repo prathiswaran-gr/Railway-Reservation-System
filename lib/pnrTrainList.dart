@@ -141,18 +141,6 @@ class PnrTrainList extends StatelessWidget {
                       Text(a_time.toString()),
                     ],
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      Text('Class :'),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(cls),
-                    ],
-                  ),
                 ],
               ),
             ),

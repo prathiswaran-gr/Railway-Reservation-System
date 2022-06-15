@@ -104,7 +104,7 @@ class _SearchTrainState extends State<SearchTrain> {
   void getTicketDetails() {
     db.getConnection().then((conn) {
       String sql =
-          'select b.pnr_no, t.train_id, train_name, t._from, t._to, _name, age, t.departure_date, t.arrival_date, t.departure_time, t.arrival_time, class from train as t,passenger as p,booking as b where t.train_id = p.train_id and p.pnr_no = b.pnr_no and b.pnr_no = ${pnrController.text};';
+          'select pnr_no, t.train_id,train_name,_from,_to, _name, age, departure_date, arrival_date, departure_time, arrival_time from train as t,passenger as p where t.train_id = p.train_id and pnr_no = ${pnrController.text};';
       conn.query(sql).then((res) {
         for (var row in res) {
           train_id = row[1];

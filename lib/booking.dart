@@ -106,29 +106,45 @@ class _BookingState extends State<Booking> {
                       },
                       items: menuItems,
                     )),
-                ElevatedButton(
-                  onPressed: () async {
-                    getTrainDetails();
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Loading()));
-                    await Future.delayed(Duration(seconds: 3), () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => Trains(
-                                  data: trainDetailsList,
-                                )),
-                      );
-                    });
-                  },
-                  child: Text('Search Trains'),
-                ),
+                checkSearchButtonEnabled()
+                    ? ElevatedButton(
+                        onPressed: () async {
+                          getTrainDetails();
+                          print(trainDetailsList);
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Loading()));
+                          await Future.delayed(Duration(seconds: 3), () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Trains(
+                                        data: trainDetailsList,
+                                      )),
+                            );
+                          });
+                        },
+                        child: Text('Search Trains'),
+                      )
+                    : ElevatedButton(
+                        onPressed: null,
+                        child: Text("Search Train"),
+                      ),
               ],
             ),
           ),
         ),
       ],
     );
+  }
+
+  bool checkSearchButtonEnabled() {
+    if (fromController != null && toController != null && dateTime != null) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   void getTrainDetails() {

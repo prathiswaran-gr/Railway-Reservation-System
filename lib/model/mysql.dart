@@ -14,4 +14,3 @@ class MySql {
     return conn;
   }
 }
-
