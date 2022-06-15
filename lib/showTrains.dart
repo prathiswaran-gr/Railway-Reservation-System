@@ -48,7 +48,7 @@ class TrainList extends StatelessWidget {
                     Column(
                       children: [
                         Text(trainDetails[2]),
-                        Text(trainDetails[6].substring(0, 5)),
+                        trainDetails[6].length == 14 ? Text(trainDetails[6].substring(0, 4)) : Text(trainDetails[6].substring(0, 5)),
                         Text(trainDetails[4].substring(0, 11)),
                       ],
                     ),
@@ -56,7 +56,7 @@ class TrainList extends StatelessWidget {
                     Column(
                       children: [
                         Text(trainDetails[3]),
-                        Text(trainDetails[7].substring(0, 5)),
+                        trainDetails[7].length == 14 ? Text(trainDetails[7].substring(0, 4)) : Text(trainDetails[7].substring(0, 5)),
                         Text(trainDetails[5].substring(0, 11)),
                       ],
                     ),

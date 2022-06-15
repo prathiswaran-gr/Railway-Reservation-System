@@ -4,23 +4,23 @@ import 'passenger.dart';
 
 class PnrTrainList extends StatelessWidget {
   int train_id, age;
-  String pnr_no, train_name, from, to, name, cls;
+  String pnr_no, train_name, from, to, name;
   DateTime d_date, a_date;
-  Duration d_time, a_time;
+  String d_time, a_time;
 
-  PnrTrainList(
-      {this.pnr_no,
-      this.train_id,
-      this.train_name,
-      this.from,
-      this.to,
-      this.name,
-      this.age,
-      this.d_date,
-      this.a_date,
-      this.d_time,
-      this.a_time,
-      this.cls});
+  PnrTrainList({
+    this.pnr_no,
+    this.train_id,
+    this.train_name,
+    this.from,
+    this.to,
+    this.name,
+    this.age,
+    this.d_date,
+    this.a_date,
+    this.d_time,
+    this.a_time,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +102,7 @@ class PnrTrainList extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      Text(d_date.toString()),
+                      Text(d_date.toString().substring(0, 11)),
                     ],
                   ),
                   SizedBox(
@@ -114,7 +114,7 @@ class PnrTrainList extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      Text(a_date.toString()),
+                      Text(a_date.toString().substring(0, 11)),
                     ],
                   ),
                   SizedBox(
@@ -126,7 +126,7 @@ class PnrTrainList extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      Text(d_time.toString()),
+                      Text(d_time),
                     ],
                   ),
                   SizedBox(
@@ -138,7 +138,7 @@ class PnrTrainList extends StatelessWidget {
                       SizedBox(
                         width: 10,
                       ),
-                      Text(a_time.toString()),
+                      Text(a_time),
                     ],
                   ),
                 ],

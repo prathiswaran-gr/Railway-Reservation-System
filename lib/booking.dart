@@ -13,6 +13,7 @@ class _BookingState extends State<Booking> {
   List<Object> trainDetailsList = [];
   var db = MySql();
   String dateTime;
+  bool isSearchButtonClicked = false;
   TextEditingController fromController = TextEditingController();
   TextEditingController toController = TextEditingController();
   DateTime currentDate = DateTime.now();
@@ -53,6 +54,11 @@ class _BookingState extends State<Booking> {
                   child: TextField(
                     decoration: const InputDecoration(labelText: 'From'),
                     controller: fromController,
+                    onChanged: (_) {
+                      setState(() {
+                        
+                      });
+                    },
                   ),
                 ),
                 SizedBox(
@@ -61,6 +67,11 @@ class _BookingState extends State<Booking> {
                   child: TextField(
                     decoration: const InputDecoration(labelText: 'To'),
                     controller: toController,
+                    onChanged: (_) {
+                      setState(() {
+                        
+                      });
+                    },
                   ),
                 ),
                 Row(
@@ -140,11 +151,16 @@ class _BookingState extends State<Booking> {
   }
 
   bool checkSearchButtonEnabled() {
-    if (fromController != null && toController != null && dateTime != null) {
-      return true;
+    if (fromController.text.isNotEmpty && toController.text.isNotEmpty && dateTime != null) {
+      setState(() {
+        isSearchButtonClicked = true;
+      });
     } else {
-      return false;
+      setState(() {
+        isSearchButtonClicked = false;
+      });
     }
+    return isSearchButtonClicked;
   }
 
   void getTrainDetails() {

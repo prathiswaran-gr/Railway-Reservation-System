@@ -17,16 +17,16 @@ class Passenger extends StatefulWidget {
 }
 
 class _PassengerState extends State<Passenger> {
-  // static const platform = const MethodChannel("razorpay_flutter");
-
-  String id;
-  _PassengerState({this.id});
-
   var db = MySql();
+
   Razorpay _razorpay;
+
   bool isTicketBooked = false;
+
   dynamic random;
+
   TextEditingController nameController = TextEditingController();
+
   TextEditingController ageController = TextEditingController();
 
   @override
@@ -158,8 +158,7 @@ class _PassengerState extends State<Passenger> {
 
   void _handlePaymentError(PaymentFailureResponse response) {
     print('Error Response: $response');
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ShowPNR(PNR: random)));
+
     /* Fluttertoast.showToast(
         msg: "ERROR: " + response.code.toString() + " - " + response.message!,
         toastLength: Toast.LENGTH_SHORT); */
@@ -181,7 +180,7 @@ class _PassengerState extends State<Passenger> {
   void storeDetails() {
     db.getConnection().then((conn) {
       conn.query(
-          "insert into passenger (pnr_no, _name, age, train_id) values ($random, '${nameController.text}', '${ageController.text}', $id)");
+          "insert into passenger (pnr_no, _name, age, train_id) values ($random, '${nameController.text}', '${ageController.text}', ${widget.id})");
       conn.close();
     });
   }

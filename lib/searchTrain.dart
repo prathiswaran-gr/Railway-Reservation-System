@@ -14,11 +14,11 @@ class SearchTrain extends StatefulWidget {
 class _SearchTrainState extends State<SearchTrain> {
   int train_id = 0, age = 0;
 
-  String train_name = '', from = '', to = '', name = '', cls = '';
+  String train_name = '', from = '', to = '', name = '';
 
   DateTime d_date, a_date;
 
-  Duration d_time, a_time;
+  String d_time, a_time;
 
   double value = 3;
 
@@ -69,8 +69,6 @@ class _SearchTrainState extends State<SearchTrain> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => Loading()));
 
-                
-
                 await Future.delayed(Duration(seconds: 3), () {
                   Navigator.push(
                     context,
@@ -87,7 +85,6 @@ class _SearchTrainState extends State<SearchTrain> {
                         a_date: a_date,
                         d_time: d_time,
                         a_time: a_time,
-                        cls: cls,
                       ),
                     ),
                   );
@@ -104,9 +101,19 @@ class _SearchTrainState extends State<SearchTrain> {
   void getTicketDetails() {
     db.getConnection().then((conn) {
       String sql =
-          'select pnr_no, t.train_id,train_name,_from,_to, _name, age, departure_date, arrival_date, departure_time, arrival_time from train as t,passenger as p where t.train_id = p.train_id and pnr_no = ${pnrController.text};';
+          'select pnr_no, t.train_id, train_name, _from, _to, _name, age, departure_date, arrival_date, departure_time, arrival_time from train as t,passenger as p where t.train_id = p.train_id and pnr_no = ${pnrController.text};';
       conn.query(sql).then((res) {
         for (var row in res) {
+          if (row[9].toString().length == 14 ) {
+            d_time = row[9].toString().substring(0, 4);
+          } else {
+            d_time = row[9].toString().substring(0, 5);
+          }
+          if (row[10].toString().length == 14 ) {
+            a_time = row[10].toString().substring(0, 4);
+          } else {
+            a_time = row[10].toString().substring(0, 5);
+          }
           train_id = row[1];
           train_name = row[2];
           from = row[3];
@@ -115,9 +122,6 @@ class _SearchTrainState extends State<SearchTrain> {
           age = row[6];
           d_date = row[7];
           a_date = row[8];
-          d_time = row[9];
-          a_time = row[10];
-          cls = row[11];
         }
       });
       conn.close();
