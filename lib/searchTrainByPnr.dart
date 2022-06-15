@@ -1,10 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:railway_reservation/loading.dart';
+import 'package:railway_reservation/loadingWidget.dart';
 import 'package:railway_reservation/model/mysql.dart';
-import 'package:railway_reservation/pnrTrainList.dart';
-import 'package:railway_reservation/trains.dart';
+import 'package:railway_reservation/pnrNumberDetails.dart';
 
 class SearchTrain extends StatefulWidget {
   @override
@@ -42,7 +41,7 @@ class _SearchTrainState extends State<SearchTrain> {
                   decoration: InputDecoration(
                     labelText: 'Enter your 10 digit PNR',
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 3, color: Colors.blue),
+                      borderSide: const BorderSide(width: 3, color: Colors.blue),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     focusedBorder: OutlineInputBorder(
@@ -58,18 +57,11 @@ class _SearchTrainState extends State<SearchTrain> {
             TextButton(
               onPressed: () async {
                 getTicketDetails();
-                // Container(
-                //   margin: EdgeInsets.all(20),
-                //   child: CircularProgressIndicator(
-                //     backgroundColor: Colors.grey,
-                //     color: Colors.purple,
-                //     strokeWidth: 5,
-                //   ),
-                // );
+              
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => Loading()));
 
-                await Future.delayed(Duration(seconds: 3), () {
+                await Future.delayed(const Duration(seconds: 3), () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -90,7 +82,7 @@ class _SearchTrainState extends State<SearchTrain> {
                   );
                 });
               },
-              child: Icon(Icons.search),
+              child: const Icon(Icons.search),
             ),
           ],
         ),

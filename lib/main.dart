@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:mysql1/mysql1.dart';
-import 'home.dart';
-import './model/mysql.dart';
+import 'homePage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,17 +13,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  @override
-  // void initState() {
-  //   //TODO: implement initState
-  //   super.initState();
-  //   callGetConnectionMethod();
-  // }
-
-  // Future<void> callGetConnectionMethod() async {
-  //   await MySql.getConnection();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(

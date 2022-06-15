@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'loading.dart';
+import 'loadingWidget.dart';
 import 'model/mysql.dart';
-import 'trains.dart';
+import 'trainList.dart';
 
 class Booking extends StatefulWidget {
+  const Booking({Key key}) : super(key: key);
+
   @override
   State<Booking> createState() => _BookingState();
 }
@@ -19,7 +21,7 @@ class _BookingState extends State<Booking> {
   DateTime currentDate = DateTime.now();
   String selectedValue = "SL";
 
-  List<DropdownMenuItem<String>> menuItems = [
+  List<DropdownMenuItem<String>> menuItems = const [
     DropdownMenuItem(child: Text("SL"), value: "SL"),
     DropdownMenuItem(child: Text("AC"), value: "AC"),
   ];
@@ -55,9 +57,7 @@ class _BookingState extends State<Booking> {
                     decoration: const InputDecoration(labelText: 'From'),
                     controller: fromController,
                     onChanged: (_) {
-                      setState(() {
-                        
-                      });
+                      setState(() {});
                     },
                   ),
                 ),
@@ -68,9 +68,7 @@ class _BookingState extends State<Booking> {
                     decoration: const InputDecoration(labelText: 'To'),
                     controller: toController,
                     onChanged: (_) {
-                      setState(() {
-                        
-                      });
+                      setState(() {});
                     },
                   ),
                 ),
@@ -121,12 +119,12 @@ class _BookingState extends State<Booking> {
                     ? ElevatedButton(
                         onPressed: () async {
                           getTrainDetails();
-                          print(trainDetailsList);
+
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Loading()));
-                          await Future.delayed(Duration(seconds: 3), () {
+                          await Future.delayed(const Duration(seconds: 3), () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -138,7 +136,7 @@ class _BookingState extends State<Booking> {
                         },
                         child: Text('Search Trains'),
                       )
-                    : ElevatedButton(
+                    : const ElevatedButton(
                         onPressed: null,
                         child: Text("Search Train"),
                       ),
@@ -151,7 +149,9 @@ class _BookingState extends State<Booking> {
   }
 
   bool checkSearchButtonEnabled() {
-    if (fromController.text.isNotEmpty && toController.text.isNotEmpty && dateTime != null) {
+    if (fromController.text.isNotEmpty &&
+        toController.text.isNotEmpty &&
+        dateTime != null) {
       setState(() {
         isSearchButtonClicked = true;
       });

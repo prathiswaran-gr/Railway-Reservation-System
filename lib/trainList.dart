@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:railway_reservation/showTrains.dart';
+import 'package:railway_reservation/trainCard.dart';
 
 class Trains extends StatelessWidget {
   List<Object> data;
@@ -10,7 +10,7 @@ class Trains extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Trains',
         ),
       ),

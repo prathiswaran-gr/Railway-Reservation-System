@@ -7,7 +7,7 @@ class Loading extends StatelessWidget {
       body: Center(
         child: Container(
           margin: EdgeInsets.all(20),
-          child: CircularProgressIndicator(
+          child: const CircularProgressIndicator(
             backgroundColor: Colors.white,
             color: Colors.blue,
             strokeWidth: 5,

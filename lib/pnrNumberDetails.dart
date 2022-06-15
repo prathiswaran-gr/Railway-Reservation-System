@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'passenger.dart';
+import 'payment/book.dart';
 
 class PnrTrainList extends StatelessWidget {
   int train_id, age;
@@ -9,6 +9,7 @@ class PnrTrainList extends StatelessWidget {
   String d_time, a_time;
 
   PnrTrainList({
+    Key key,
     this.pnr_no,
     this.train_id,
     this.train_name,
@@ -20,13 +21,13 @@ class PnrTrainList extends StatelessWidget {
     this.a_date,
     this.d_time,
     this.a_time,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Status"),
+        title: const Text("Status"),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -51,61 +52,61 @@ class PnrTrainList extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('PNR Number:'),
-                      Text(pnr_no),
+                      const Text('PNR Number:',style: TextStyle(fontSize:20),),
+                      Text(pnr_no,style: const TextStyle(fontSize:30,fontWeight:FontWeight.bold),),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [Text('$train_id'), Text(train_name)],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [Text('From : $from'), Text('To : $to')],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
                     children: [
                       Text('Passenger Name:'),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Text(name),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
                     children: [
                       Text('Age :'),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       Text('$age'),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
                     children: [
-                      Text('Depature Date :'),
-                      SizedBox(
+                      const Text('Depature Date :'),
+                      const SizedBox(
                         width: 10,
                       ),
                       Text(d_date.toString().substring(0, 11)),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(

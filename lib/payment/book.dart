@@ -1,16 +1,16 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:railway_reservation/payment.dart';
-import 'package:railway_reservation/showPNR.dart';
+
+import 'package:railway_reservation/showPnrNumber.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
-import 'model/mysql.dart';
+import '../model/mysql.dart';
 
 class Passenger extends StatefulWidget {
   String id;
 
-  Passenger({this.id});
+  Passenger({Key key, this.id}) : super(key: key);
 
   @override
   State<Passenger> createState() => _PassengerState();
@@ -33,7 +33,7 @@ class _PassengerState extends State<Passenger> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Booking'),
+        title: const Text('Booking'),
       ),
       body: Center(
         child: Container(
@@ -59,12 +59,7 @@ class _PassengerState extends State<Passenger> {
                 child: TextField(
                   decoration: const InputDecoration(
                       labelText: 'Name', hintText: 'Enter Your Name Here !'),
-
                   controller: nameController,
-                  // onSubmitted: (_) => _submitData(),
-                  // onChanged: (val) {
-                  //   titleInput = val;
-                  // },
                 ),
               ),
               SizedBox(
@@ -73,25 +68,12 @@ class _PassengerState extends State<Passenger> {
                 child: TextField(
                   decoration: const InputDecoration(
                       labelText: 'Age', hintText: 'Enter Your Age Here !'),
-
                   controller: ageController,
-                  // onSubmitted: (_) => _submitData(),
-                  // onChanged: (val) {
-                  //   titleInput = val;
-                  // },
                 ),
               ),
               ElevatedButton(
                 onPressed: openCheckout,
-                //() {
-                //   // Navigator.push(
-                //   //   context,
-                //   //   MaterialPageRoute(
-                //   //     builder: (context) => RazorPay(),
-                //   //   ),
-                //   // );
-                // },
-                child: Text('Book'),
+                child: const Text('Book'),
               )
             ],
           ),
@@ -141,7 +123,6 @@ class _PassengerState extends State<Passenger> {
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
-    print('Success Response: $response');
     setState(() {
       isTicketBooked = true;
     });
@@ -151,30 +132,15 @@ class _PassengerState extends State<Passenger> {
           MaterialPageRoute(builder: (context) => ShowPNR(PNR: random)));
       storeDetails();
     }
-    /*Fluttertoast.showToast(
-        msg: "SUCCESS: " + response.paymentId!,
-        toastLength: Toast.LENGTH_SHORT); */
   }
 
-  void _handlePaymentError(PaymentFailureResponse response) {
-    print('Error Response: $response');
+  void _handlePaymentError(PaymentFailureResponse response) {}
 
-    /* Fluttertoast.showToast(
-        msg: "ERROR: " + response.code.toString() + " - " + response.message!,
-        toastLength: Toast.LENGTH_SHORT); */
-  }
-
-  void _handleExternalWallet(ExternalWalletResponse response) {
-    print('External SDK Response: $response');
-    /* Fluttertoast.showToast(
-        msg: "EXTERNAL_WALLET: " + response.walletName!,
-        toastLength: Toast.LENGTH_SHORT); */
-  }
+  void _handleExternalWallet(ExternalWalletResponse response) {}
 
   void genratePNR() {
     var rand = Random();
     random = rand.nextInt(900000000) + 3000000000;
-    print(random);
   }
 
   void storeDetails() {

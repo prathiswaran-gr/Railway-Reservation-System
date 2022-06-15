@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:railway_reservation/booking.dart';
-import 'package:railway_reservation/passenger.dart';
-import 'package:railway_reservation/searchTrain.dart';
+import 'package:railway_reservation/searchTrainByFromTo.dart';
+
+import 'package:railway_reservation/searchTrainByPnr.dart';
 
 class Home extends StatelessWidget {
   const Home({Key key}) : super(key: key);
@@ -27,7 +27,7 @@ class Home extends StatelessWidget {
         ),
         body: TabBarView(
           children: <Widget>[
-            Booking(),
+             Booking(),
             SearchTrain(),
           ],
         ),
