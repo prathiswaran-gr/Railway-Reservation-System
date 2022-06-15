@@ -41,7 +41,8 @@ class _SearchTrainState extends State<SearchTrain> {
                   decoration: InputDecoration(
                     labelText: 'Enter your 10 digit PNR',
                     enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(width: 3, color: Colors.blue),
+                      borderSide:
+                          const BorderSide(width: 3, color: Colors.blue),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     focusedBorder: OutlineInputBorder(
@@ -51,13 +52,14 @@ class _SearchTrainState extends State<SearchTrain> {
                     ),
                   ),
                   controller: pnrController,
+                  keyboardType: TextInputType.number,
                 ),
               ),
             ),
             TextButton(
               onPressed: () async {
                 getTicketDetails();
-              
+
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => Loading()));
 
@@ -81,6 +83,7 @@ class _SearchTrainState extends State<SearchTrain> {
                     ),
                   );
                 });
+                pnrController.clear();
               },
               child: const Icon(Icons.search),
             ),
@@ -96,12 +99,12 @@ class _SearchTrainState extends State<SearchTrain> {
           'select pnr_no, t.train_id, train_name, _from, _to, _name, age, departure_date, arrival_date, departure_time, arrival_time from train as t,passenger as p where t.train_id = p.train_id and pnr_no = ${pnrController.text};';
       conn.query(sql).then((res) {
         for (var row in res) {
-          if (row[9].toString().length == 14 ) {
+          if (row[9].toString().length == 14) {
             d_time = row[9].toString().substring(0, 4);
           } else {
             d_time = row[9].toString().substring(0, 5);
           }
-          if (row[10].toString().length == 14 ) {
+          if (row[10].toString().length == 14) {
             a_time = row[10].toString().substring(0, 4);
           } else {
             a_time = row[10].toString().substring(0, 5);
