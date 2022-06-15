@@ -37,7 +37,7 @@ class _PassengerState extends State<Passenger> {
       ),
       body: Center(
         child: Container(
-          width: 320,
+          width: 280,
           height: 230,
           margin: const EdgeInsets.all(30.0),
           padding: const EdgeInsets.all(10.0),
@@ -54,7 +54,7 @@ class _PassengerState extends State<Passenger> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
-                width: 300,
+                width: 200,
                 height: 75,
                 child: TextField(
                   decoration: const InputDecoration(
@@ -63,12 +63,15 @@ class _PassengerState extends State<Passenger> {
                 ),
               ),
               SizedBox(
-                width: 300,
+                width: 200,
                 height: 75,
                 child: TextField(
                   decoration: const InputDecoration(
-                      labelText: 'Age', hintText: 'Enter Your Age Here !'),
+                    labelText: 'Age',
+                    hintText: 'Enter Your Age Here !',
+                  ),
                   controller: ageController,
+                  keyboardType: TextInputType.number,
                 ),
               ),
               ElevatedButton(
@@ -105,14 +108,15 @@ class _PassengerState extends State<Passenger> {
       "timeout": 120,
       "name": "Railway Reservation",
       "description": "Test Transaction",
-      "image": "https://example.com/your_logo",
+      "image":
+          "https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/7c2bf24ac3272c8360aa31b2631ee99e",
       "prefill": {
         "name": "Prathis",
         "email": "test@gmail.com",
         "contact": "1234567890"
       },
       "notes": {"address": "Autofy"},
-      "theme": {"color": "#DF0145"},
+      "theme": {"color": "#528FF0"},
     };
 
     try {

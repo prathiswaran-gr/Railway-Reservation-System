@@ -40,7 +40,7 @@ class PnrTrainList extends StatelessWidget {
               padding: const EdgeInsets.all(20.0),
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: Colors.blueAccent,
+                  color: Color.fromRGBO(33, 150, 243, 1),
                   width: 3,
                 ),
                 borderRadius: const BorderRadius.all(
@@ -52,8 +52,8 @@ class PnrTrainList extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text('PNR Number:',style: TextStyle(fontSize:20),),
-                      Text(pnr_no,style: const TextStyle(fontSize:30,fontWeight:FontWeight.bold),),
+                      const Text('PNR Number:'),
+                      Text(pnr_no,style: const TextStyle(fontSize:15,fontWeight:FontWeight.bold),),
                     ],
                   ),
                   const SizedBox(
@@ -142,6 +142,17 @@ class PnrTrainList extends StatelessWidget {
                       Text(a_time),
                     ],
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(Icons.home),
+                  label: Text("Back to Home"),
+                ),
                 ],
               ),
             ),

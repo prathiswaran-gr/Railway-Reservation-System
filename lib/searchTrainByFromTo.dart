@@ -21,13 +21,13 @@ class _BookingState extends State<Booking> {
   DateTime currentDate = DateTime.now();
   String selectedValue = "SL";
 
-  List<DropdownMenuItem<String>> menuItems = const [
+  List<DropdownMenuItem<String>> menuItems = [
     DropdownMenuItem(child: Text("SL"), value: "SL"),
     DropdownMenuItem(child: Text("AC"), value: "AC"),
   ];
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width / 1.2;
+    var width = MediaQuery.of(context).size.width / 1.8;
     var height = MediaQuery.of(context).size.height / 1.6;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,12 +35,12 @@ class _BookingState extends State<Booking> {
       children: [
         Center(
           child: Container(
-            width: 400,
+            width: 300,
             margin: const EdgeInsets.all(20.0),
             padding: const EdgeInsets.all(10.0),
             decoration: BoxDecoration(
               border: Border.all(
-                color: Colors.blueAccent,
+                color: Colors.blue,
                 width: 3,
               ),
               borderRadius: const BorderRadius.all(
@@ -73,7 +73,7 @@ class _BookingState extends State<Booking> {
                   ),
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     TextButton(
                       onPressed: () {
@@ -96,25 +96,26 @@ class _BookingState extends State<Booking> {
                           });
                         });
                       },
-                      child: const Text('Choose Date'),
+                      child: const Text(
+                        'Choose Date',
+                        style: TextStyle(fontSize: 18),
+                      ),
                     ),
-                    Text(
-                      dateTime == null ? 'No date Chosen' : dateTime.toString(),
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                    dateTime == null
+                        ? Text(
+                            'No date Chosen',
+                            style: TextStyle(
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
+                          )
+                        : Text(
+                            dateTime.toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
+                          ),
                   ],
                 ),
-                SizedBox(
-                    width: 100,
-                    child: DropdownButton(
-                      value: selectedValue,
-                      onChanged: (String newValue) {
-                        setState(() {
-                          selectedValue = newValue;
-                        });
-                      },
-                      items: menuItems,
-                    )),
                 checkSearchButtonEnabled()
                     ? ElevatedButton(
                         onPressed: () async {
@@ -124,6 +125,7 @@ class _BookingState extends State<Booking> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => Loading()));
+
                           await Future.delayed(const Duration(seconds: 3), () {
                             Navigator.push(
                               context,
@@ -132,6 +134,11 @@ class _BookingState extends State<Booking> {
                                         data: trainDetailsList,
                                       )),
                             );
+                          });
+                          fromController.clear();
+                          toController.clear();
+                          setState(() {
+                            dateTime = null;
                           });
                         },
                         child: Text('Search Trains'),
