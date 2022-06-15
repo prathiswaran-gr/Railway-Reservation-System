@@ -11,7 +11,7 @@ class SearchTrain extends StatefulWidget {
 }
 
 class _SearchTrainState extends State<SearchTrain> {
-  int train_id = 0, age = 0;
+  int pnr = 0, train_id = 0, age = 0;
 
   String train_name = '', from = '', to = '', name = '';
 
@@ -68,7 +68,7 @@ class _SearchTrainState extends State<SearchTrain> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => PnrTrainList(
-                        pnr_no: pnrController.text,
+                        pnr_no: pnr.toString(),
                         train_id: train_id,
                         train_name: train_name,
                         name: name,
@@ -109,6 +109,7 @@ class _SearchTrainState extends State<SearchTrain> {
           } else {
             a_time = row[10].toString().substring(0, 5);
           }
+          pnr = row[0];
           train_id = row[1];
           train_name = row[2];
           from = row[3];
